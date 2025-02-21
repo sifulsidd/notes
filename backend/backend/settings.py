@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+# ran: python -m pip install python-dotenv to fix the import error
 from dotenv import load_dotenv
 
 import os
