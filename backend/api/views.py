@@ -9,7 +9,7 @@ class CreateUserView(generics.CreateAPIView):
     # list of different objects when create new one, make sure don't create user that exists
     queryset = User.objects.all()
     # what kind of data we need for a new user
-    serializer_class = User
+    serializer_class = UserSerializer
     # who can call this data, think registration
     permission_classes = [AllowAny]
     
