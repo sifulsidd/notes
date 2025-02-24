@@ -2,12 +2,18 @@ import { Navigate } from "react-router-dom";
 import {jwtDecode} from "jwt-decode";
 import api from "../api";
 import { REFRESH_TOKEN, ACCESS_TOKEN } from "../constants";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 // basically this route checks whether the token is valid or not
 function ProtectedRoute({children}){
     const [isAuthourized, setIsAuthorized] = useState(null);
+
+    // basically checks if the user is valid
+    // initiallity runs the auth() command and if auth fails then token is missing or not there
+    useEffect(()=>{
+        auth().catch(() => setIsAuthorized(false))
+    }, []);
 
     // refreshTOken checks if the token is valid, then it tries to make a get request and get the information
     // if information is valid, it sets the ACCESS_TOKEN you receive 
