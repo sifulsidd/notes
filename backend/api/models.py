@@ -6,7 +6,7 @@ class Note(models.Model):
     # add a title, content and create at field
     title = models.CharField(max_length=100)
     content = models.TextField()
-    create_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     
     # who made this note
     # foreign key links data together 
