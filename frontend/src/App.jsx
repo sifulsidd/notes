@@ -22,25 +22,26 @@ function App() {
 
   return (
     <BrowserRouter>
-    <Routes>
-      {/* home can only be rendered if user is signed in first, hence why we put in protected route */}
-      <Route 
-        path="/"
-        element={
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>
-        }
-      />
+      <Routes>
+        {/* home can only be rendered if user is signed in first, hence why we put in protected route */}
+        <Route 
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
 
-      {/* anyone can redirect to login page and redirect page*/}
-      <Route path='/login' element={<Login />} />
-      <Route path='/register' element={<RegisterAndLogout />}/>
+        {/* anyone can redirect to login page and register page*/}
+        <Route path='/login' element={<Login />} />
+        <Route path='/logout' element={<Logout />} />
+        <Route path='/register' element={<RegisterAndLogout />}/>
 
-      {/* if not register or login, go to error page */}
-      <Route path='*' element={<NotFound />}/>
+        {/* if not register or login, go to error page */}
+        <Route path='*' element={<NotFound />}/>
 
-    </Routes>
+      </Routes>
     </BrowserRouter>
   )
 }
