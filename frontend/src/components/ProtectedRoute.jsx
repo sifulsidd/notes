@@ -16,7 +16,7 @@ function ProtectedRoute({children}){
         auth().catch(() => setIsAuthorized(false))
     }, []);
 
-    // refreshTOken checks if the token is valid, then it tries to make a get request and get the information
+    // refreshToken checks if the token is valid, then it tries to make a get request and get the information
     // if information is valid, it sets the ACCESS_TOKEN you receive 
     // otherwise setIsAuthorized is false
     const refreshToken = async() => {
@@ -24,7 +24,7 @@ function ProtectedRoute({children}){
         try{
             const res = await api.post("/api/token/refresh/",{
                 refresh : refreshToken
-            } )
+            } );
             if (res.status === 200){
                 localStorage.setItem(ACCESS_TOKEN, res.data.access);
                 setIsAuthorized(true);
@@ -47,13 +47,13 @@ function ProtectedRoute({children}){
 
         if(!token){
             setIsAuthorized(false);
-            return
+            return;
         }
         
         
         const decoded = jwtDecode(token);
-        const tokenExpiration = decoded.exp
-        const now = Date.now() / 1000 //dates in seconds not milliseconds
+        const tokenExpiration = decoded.exp;
+        const now = Date.now() / 1000; //dates in seconds not milliseconds
 
         if (tokenExpiration < now){
             await refreshToken();
@@ -64,7 +64,7 @@ function ProtectedRoute({children}){
     }
 
     if (isAuthourized === null){
-        return <div>Loading...</div>
+        return <div>Loading...</div>;
     }
     
     return isAuthourized ? children : <Navigate to="/login" />;
