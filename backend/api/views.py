@@ -15,7 +15,8 @@ class NoteListCreate(generics.ListCreateAPIView):
     def get_queryset(self):
         user = self.request.user
         # if we wanted all notes can do: Note.objects.all()
-        
+        print(Note.objects.filter(author=user))
+        # print(Note.objects.filter(id=1))
         # filters by author field, shows all notes by this specific user
         return Note.objects.filter(author=user)
 
@@ -52,21 +53,32 @@ class CreateUserView(generics.CreateAPIView):
     # who can call this data, think registration
     permission_classes = [AllowAny]
     
+# to just get one note
 class NoteView(generics.RetrieveAPIView):
-    def get(self, request, id):
-        try:
-            note = Note.objects.get(id=id)
-        except Note.DoesNotExist: 
-            print("Note not found in database")
-            
-        serializer = NoteSerializer(note)
-        return Response(serializer.data, status= status.HTTP_200_OK)
-
-class NoteEdit(generics.UpdateAPIView):
-    serializer_class = NoteSerializer
     permission_classes = [IsAuthenticated]
+    serializer_class = NoteSerializer
     
-    # this makes sure only the information that user has access to can be accessed   
+    # first filet by just this users notes
     def get_queryset(self):
         user = self.request.user
         return Note.objects.filter(author=user)
+ 
+    # get specific note
+    def get_object(self):
+        # gets 'id' from URL
+        note_id = self.kwargs['id']
+        try:
+            # ensures note belongs to authenticated user
+            note = Note.objects.get(id=note_id, author=self.request.user)
+            return note
+        except Note.DoesNotExist: 
+            print("Note does not exist")
+
+# class NoteEdit(generics.UpdateAPIView):
+#     serializer_class = NoteSerializer
+#     permission_classes = [IsAuthenticated]
+    
+#     # this makes sure only the information that user has access to can be accessed   
+#     def get_queryset(self):
+#         user = self.request.user
+#         return Note.objects.filter(author=user)

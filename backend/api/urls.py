@@ -6,7 +6,7 @@ urlpatterns = [
     path("notes/delete/<int:pk>/", views.NoteDelete.as_view(), name="delete-note"),
     
     # find a specific note
-    path("notes/<int:id>/", views.NoteView.as_view(), name="view-note"),
+    path("notes/view/<int:id>/", views.NoteView.as_view(), name="view-note"),
     # add an edit path
-    path("notes/edit/<int:pk>/", views.NoteEdit.as_view(), name="edit-note")
+    # path("notes/edit/<int:pk>/", views.NoteEdit.as_view(), name="edit-note")
 ]
