@@ -35,7 +35,7 @@ function App() {
 
       {/* anyone can redirect to login page and redirect page*/}
       <Route path='/login' element={<Login />} />
-      <Route path='/register' element={<Register />}/>
+      <Route path='/register' element={<RegisterAndLogout />}/>
 
       {/* if not register or login, go to error page */}
       <Route path='*' element={<NotFound />}/>
