@@ -8,5 +8,5 @@ urlpatterns = [
     # find a specific note
     path("notes/view/<int:id>/", views.NoteView.as_view(), name="view-note"),
     # add an edit path
-    # path("notes/edit/<int:pk>/", views.NoteEdit.as_view(), name="edit-note")
+    path("notes/edit/<int:id>/", views.NoteEdit.as_view(), name="edit-note")
 ]

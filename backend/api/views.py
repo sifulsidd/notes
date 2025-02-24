@@ -74,11 +74,22 @@ class NoteView(generics.RetrieveAPIView):
         except Note.DoesNotExist: 
             print("Note does not exist")
 
-# class NoteEdit(generics.UpdateAPIView):
-#     serializer_class = NoteSerializer
-#     permission_classes = [IsAuthenticated]
+class NoteEdit(generics.UpdateAPIView):
+    serializer_class = NoteSerializer
+    permission_classes = [IsAuthenticated]
     
-#     # this makes sure only the information that user has access to can be accessed   
-#     def get_queryset(self):
-#         user = self.request.user
-#         return Note.objects.filter(author=user)
+    # this makes sure only the information that user has access to can be accessed   
+    def get_queryset(self):
+        user = self.request.user
+        return Note.objects.filter(author=user)
+    
+    # get specific note
+    def get_object(self):
+        # gets 'id' from URL
+        note_id = self.kwargs['id']
+        try:
+            # ensures note belongs to authenticated user
+            note = Note.objects.get(id=note_id, author=self.request.user)
+            return note
+        except Note.DoesNotExist: 
+            print("Note does not exist")
