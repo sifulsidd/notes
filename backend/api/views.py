@@ -75,6 +75,7 @@ class NoteView(generics.RetrieveAPIView):
         except Note.DoesNotExist: 
             print("Note does not exist")
 
+# to edit to page make sure to use UpdateAPIView 
 class NoteEdit(generics.UpdateAPIView):
     serializer_class = NoteSerializer
     permission_classes = [IsAuthenticated]
