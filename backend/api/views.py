@@ -53,6 +53,7 @@ class CreateUserView(generics.CreateAPIView):
     # who can call this data, think registration
     permission_classes = [AllowAny]
     
+# this is important because we are getting information through the backend, if we wanted we could pass this in through props from frontend
 # to just get one note
 class NoteView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated]
