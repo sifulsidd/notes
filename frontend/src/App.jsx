@@ -5,6 +5,7 @@ import Register from './pages/Register';
 import NotFound from './pages/NotFound';
 import Home from './pages/Home';
 import ProtectedRoute from './components/ProtectedRoute';
+import EditPage from './pages/EditPage';
 
 // logout of the page
 function Logout(){
@@ -38,9 +39,13 @@ function App() {
         <Route path='/logout' element={<Logout />} />
         <Route path='/register' element={<RegisterAndLogout />}/>
 
+        {/* over here we do the editing of the page */}
+        <Route path='/edit/:id/' element={<EditPage />}/>
+        
         {/* if not register or login, go to error page */}
         <Route path='*' element={<NotFound />}/>
-
+        
+        
       </Routes>
     </BrowserRouter>
   )
